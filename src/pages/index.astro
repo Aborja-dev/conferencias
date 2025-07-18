@@ -1,5 +1,12 @@
 ---
 import Layout from "../Layout.astro";
+import { db, TalksTable } from 'astro:db';
+
+
+const talks = await db.select().from(TalksTable);
+console.log(talks);
+
+
 ---
 
 <Layout>
@@ -20,24 +27,16 @@ import Layout from "../Layout.astro";
 					</tr>
 				</thead>
 				<tbody class="text-white">
-					<tr class="border-b-2 border-white bg-gray-500">
-						<td class="p-2">2023-01-01</td>
-						<td class="p-2">Charla 1</td>
-						<td class="p-2">Descripción de la charla 1</td>
-						<td class="p-2">Aceptada</td>
-					</tr>
-					<tr class="border-b-2 border-white">
-						<td class="p-2">2023-01-01</td>
-						<td class="p-2">Charla 2</td>
-						<td class="p-2">Descripción de la charla 2</td>
-						<td class="p-2">Rechazada</td>
-					</tr>
-					<tr class="border-b-2 border-white bg-gray-500">
-						<td class="p-2">2023-01-01</td>
-						<td class="p-2">Charla 3</td>
-						<td class="p-2">Descripción de la charla 3</td>
-						<td class="p-2">Aceptada</td>
-					</tr>
+					{
+						talks.map((talk, index) => (
+							<tr class:list={["border-b-2 border-white", index % 2 === 0 ? "bg-slate-900" : "bg-slate-700"]}>
+								<td class="p-4">{talk.date}</td>
+								<td class="p-4">{talk.name}</td>
+								<td class="p-4">{talk.description}</td>
+								<td class:list={["p-4", talk.state === "Aceptada" ? "text-green-500" : "text-red-500"]}>{talk.state}</td>
+							</tr>
+						))
+					}
 				</tbody>
 			</table>
 		</div>
