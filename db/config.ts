@@ -1,4 +1,4 @@
-import { column, defineDb, defineTable } from 'astro:db';
+/* 
 
 
 
@@ -33,5 +33,7 @@ const UserTable = defineTable({
 
 // https://astro.build/db/config
 export default defineDb({
-  tables: {TalksTable, UserTable}
+  tables: {TalksTable, UserTable},
+
 });
+ */

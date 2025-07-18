@@ -1,0 +1,12 @@
+---
+interface Props {
+    state: string;
+    value: string
+}
+const { state, value } = Astro.props;
+
+---
+
+<option selected={state.toLowerCase() === value} value={value}>
+    <slot />
+</option>

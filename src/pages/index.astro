@@ -1,7 +1,8 @@
 ---
 import Layout from "../Layout.astro";
-import { db, TalksTable } from 'astro:db';
-const talks = await db.select().from(TalksTable);
+import { Speaker } from "../lib/service";
+
+const talks = await Speaker.showALlTalks();
 ---
 
 <Layout>

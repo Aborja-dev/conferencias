@@ -1,0 +1,1 @@
+tuve problemas con la llamada al servidor despues de mucho decidi cambiar a integracion manual y a endpoints api no se porque no funciona
