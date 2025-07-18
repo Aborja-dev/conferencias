@@ -12,6 +12,10 @@ export const usersTable = sqliteTable("users_table", {
   email: text().notNull().unique(),
 });
 
+export const userRelation = relations(usersTable, ({ many }) => ({
+  talks: many(TalksTable),
+}))
+
 export const TalksTable = sqliteTable("talks_table", {
   id: int().primaryKey({ autoIncrement: true }),
   date: text().notNull(),

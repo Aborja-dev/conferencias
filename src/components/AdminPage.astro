@@ -7,6 +7,7 @@ interface Props {
 	talks: AdminTalk[];
 }
 const { talks } = Astro.props;
+
 ---
 
 <Layout>
@@ -18,7 +19,7 @@ const { talks } = Astro.props;
 	<section
 		class="w-full h-[calc(100vh-70px)] flex justify-center items-center p-4"
 	>
-		<div class="w-4/5 h-full mx-auto bg-slate-500 rounded-xl shadow p-8">
+		<div class="w-4/5 h-full overflow-y-scroll mx-auto bg-slate-500 rounded-xl shadow p-8">
 			<table class="w-full">
 				<thead class="text-left text-3xl font-bold text-white">
 					<tr class="border-b-2 border-white">
@@ -49,18 +50,26 @@ const { talks } = Astro.props;
 										name="status"
 										id={`select-${talk.id.toString()}`}
 										class="bg-slate-900"
-										
 									>
 										<>
-											<Option state={talk.state} value="pending">
+											<Option
+												state={talk.state}
+												value="pending"
+											>
 												Pendiente
 											</Option>
-											<Option state={talk.state} value="accepted">
+											<Option
+												state={talk.state}
+												value="accepted"
+											>
 												Aceptada
 											</Option>
-											<Option state={talk.state} value="rejected">
+											<Option
+												state={talk.state}
+												value="rejected"
+											>
 												Rechazada
-											</Option>									
+											</Option>
 										</>
 									</select>
 								</td>
