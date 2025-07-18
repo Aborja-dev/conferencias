@@ -24,9 +24,21 @@ const getTalksWithUsers = async (): Promise<AdminTalk[]> => {
     })
     return talks
 }
-
+const createTalk = async (input: {
+    name: string,
+    date: string,
+    description: string
+}) => {
+    const result = await db.insert(TalksTable).values([{
+        name: input.name,
+        date: input.date,
+        description: input.description,
+        state: 'Pendiente',
+        user_id: 1
+    }])
+    return result
+}
 const updateStatus = async (id: number, status: string) => {
-    console.log('updateStatus', id, status);
     const result = await db.update(TalksTable)
         .set({ state: status })
         .where(eq(TalksTable.id, id));
@@ -36,6 +48,7 @@ const updateStatus = async (id: number, status: string) => {
 
 export const Speaker = {
     showALlTalks,
+    createTalk
 }
 
 export const Admin = {

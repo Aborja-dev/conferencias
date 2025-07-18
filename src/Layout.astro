@@ -8,12 +8,20 @@ import "./styles/global.css";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&display=swap"
+			rel="stylesheet"
+		/>
 		<title>Conferencias espaciales</title>
 	</head>
 	<body>
+		<header class="w-full h-[70px] shadow-2xl bg-blue-800">
+			<h1 class="text-3xl text-white font-bold p-4 uppercase">
+				<a href="/">Conferencias espaciales</a>
+			</h1>
+		</header>
 		<slot />
 	</body>
 </html>

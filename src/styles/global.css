@@ -6,6 +6,6 @@ body {
     background-color: hsl(249, 57%, 86%);
 }
 
-h1,h2,h3 {
+h1,h2,h3, label {
   font-family: "Orbitron", sans-serif;
 }
