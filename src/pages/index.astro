@@ -1,16 +1,45 @@
 ---
-
+import Layout from "../Layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+	<header class="w-full h-[70px] shadow-2xl bg-blue-800">
+		<h1 class="text-3xl text-white font-bold p-4 uppercase">
+			<a href="/">Conferencias espaciales</a>
+		</h1>
+	</header>
+	<section class="w-full h-[calc(100vh-70px)] flex justify-center items-center p-4">
+		<div class="w-4/5 h-full mx-auto  bg-slate-500 rounded-xl shadow p-8">
+			<table class="w-full">
+				<thead class="text-left text-3xl font-bold text-white">
+					<tr class="border-b-2 border-white">
+						<th class="p-4">Fecha</th>
+						<th class="p-4">Nombre</th>
+						<th class="p-4">Descripcion</th>
+						<th class="p-4">Estado</th>
+					</tr>
+				</thead>
+				<tbody class="text-white">
+					<tr class="border-b-2 border-white bg-gray-500">
+						<td class="p-2">2023-01-01</td>
+						<td class="p-2">Charla 1</td>
+						<td class="p-2">Descripción de la charla 1</td>
+						<td class="p-2">Aceptada</td>
+					</tr>
+					<tr class="border-b-2 border-white">
+						<td class="p-2">2023-01-01</td>
+						<td class="p-2">Charla 2</td>
+						<td class="p-2">Descripción de la charla 2</td>
+						<td class="p-2">Rechazada</td>
+					</tr>
+					<tr class="border-b-2 border-white bg-gray-500">
+						<td class="p-2">2023-01-01</td>
+						<td class="p-2">Charla 3</td>
+						<td class="p-2">Descripción de la charla 3</td>
+						<td class="p-2">Aceptada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</Layout>
