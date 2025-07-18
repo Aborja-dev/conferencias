@@ -1,12 +1,7 @@
 ---
 import Layout from "../Layout.astro";
 import { db, TalksTable } from 'astro:db';
-
-
 const talks = await db.select().from(TalksTable);
-console.log(talks);
-
-
 ---
 
 <Layout>
