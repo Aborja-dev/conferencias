@@ -1,12 +1,13 @@
 import { eq } from "drizzle-orm";
 import { db, TalksTable, usersTable } from "../db/schema";
-import type { Talks } from "../../db/types";
+import type { TalkSchema } from "../db/type";
+
 
 const showALlTalks = async () => {
     const talks = await db.select().from(TalksTable);
     return talks;
 }
-export type AdminTalk = Talks & { user: { id: number, name: string, email: string } }   
+export type AdminTalk = TalkSchema & { user: { id: number, name: string, email: string } }   
 const getTalksWithUsers = async (): Promise<AdminTalk[]> => {
     const rows = await db
         .select()
@@ -26,15 +27,20 @@ const getTalksWithUsers = async (): Promise<AdminTalk[]> => {
 }
 const createTalk = async (input: {
     name: string,
-    date: string,
-    description: string
+    date: number,
+    description: string,
+    hour: number,
+    duration: number
 }) => {
+    console.log('input', input);
     const result = await db.insert(TalksTable).values([{
         name: input.name,
         date: input.date,
         description: input.description,
         state: 'Pendiente',
-        user_id: 1
+        user_id: 1,
+        hour: input.hour,
+        duration: input.duration
     }])
     return result
 }

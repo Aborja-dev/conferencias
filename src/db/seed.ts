@@ -1,125 +1,69 @@
 import { db, TalksTable, usersTable } from './schema';
+import type { ForInsertTalk } from './type';
 
-const talks = [
+const editDate = (date:string, time:string) => {
+	const newDate = new Date(date).getTime();
+	const _time = new Date(`${date} ${time}`).getTime();
+	return {
+		date: newDate,
+		hour: _time
+	}
+}
+
+const talks: ForInsertTalk[] = [
    {
-   	date: "2023-01-15",
+   	date: editDate("2023-01-01", "10:00:00").date,
    	name: "Introducción a React",
    	description: "Fundamentos básicos de React para principiantes",
-   	state: "Aceptada"
+   	state: "Aceptada",
+   	user_id: 1,
+   	hour: editDate("2023-01-01", "10:00:00").hour,
+   	duration: 30
    },
    {
-   	date: "2023-02-10",
-   	name: "Node.js Avanzado",
-   	description: "Técnicas avanzadas de desarrollo backend con Node.js",
-   	state: "Rechazada"
+   	date: editDate("2023-01-15", "14:30:00").date,
+   	name: "Node.js y Express",
+   	description: "Desarrollo web con Node.js y Express",
+   	state: "Pendiente",
+   	user_id: 1,
+   	hour: editDate("2023-01-15", "14:30:00").hour,
+   	duration: 30
    },
    {
-   	date: "2023-02-25",
+   	date: editDate("2023-02-01", "09:00:00").date,
    	name: "CSS Grid y Flexbox",
    	description: "Domina los sistemas de layout modernos de CSS",
-   	state: "Aceptada"
+   	state: "Aceptada",
+   	user_id: 1,
+   	hour: editDate("2023-02-01", "09:00:00").hour,
+   	duration: 30
    },
    {
-   	date: "2023-03-08",
+   	date: editDate("2023-02-15", "15:30:00").date,
    	name: "MongoDB para Desarrolladores",
    	description: "Base de datos NoSQL y mejores prácticas",
-   	state: "Pendiente"
+   	state: "Pendiente",
+   	user_id: 1,
+   	hour: editDate("2023-02-15", "15:30:00").hour,
+   	duration: 30
    },
    {
-   	date: "2023-03-22",
+   	date: editDate("2023-03-01", "11:00:00").date,
    	name: "JavaScript ES6+",
    	description: "Características modernas de JavaScript",
-   	state: "Aceptada"
+   	state: "Aceptada",
+   	user_id: 1,
+   	hour: editDate("2023-03-01", "11:00:00").hour,
+   	duration: 30
    },
    {
-   	date: "2023-04-05",
-   	name: "Testing con Jest",
-   	description: "Pruebas unitarias y de integración",
-   	state: "Aceptada"
-   },
-   {
-   	date: "2023-04-18",
-   	name: "Docker para Desarrolladores",
-   	description: "Contenedores y orquestación básica",
-   	state: "Rechazada"
-   },
-   {
-   	date: "2023-05-03",
-   	name: "Vue.js Fundamentals",
-   	description: "Introducción al framework Vue.js",
-   	state: "Aceptada"
-   },
-   {
-   	date: "2023-05-17",
-   	name: "APIs RESTful",
-   	description: "Diseño y desarrollo de APIs REST",
-   	state: "Pendiente"
-   },
-   {
-   	date: "2023-06-01",
-   	name: "TypeScript Esencial",
-   	description: "JavaScript tipado para aplicaciones robustas",
-   	state: "Aceptada"
-   },
-   {
-   	date: "2023-06-15",
+   	date: editDate("2023-03-15", "16:30:00").date,
    	name: "Git y GitHub",
-   	description: "Control de versiones y colaboración",
-   	state: "Aceptada"
-   },
-   {
-   	date: "2023-07-02",
-   	name: "Webpack Configuration",
-   	description: "Configuración avanzada de bundlers",
-   	state: "Rechazada"
-   },
-   {
-   	date: "2023-07-20",
-   	name: "Progressive Web Apps",
-   	description: "Desarrollo de PWAs modernas",
-   	state: "Aceptada"
-   },
-   {
-   	date: "2023-08-05",
-   	name: "GraphQL Basics",
-   	description: "Alternativa moderna a REST APIs",
-   	state: "Pendiente"
-   },
-   {
-   	date: "2023-08-18",
-   	name: "Sass y Preprocessing",
-   	description: "CSS con superpoderes usando Sass",
-   	state: "Aceptada"
-   },
-   {
-   	date: "2023-09-01",
-   	name: "Express.js Deep Dive",
-   	description: "Framework web para Node.js",
-   	state: "Aceptada"
-   },
-   {
-   	date: "2023-09-15",
-   	name: "Deployment Strategies",
-   	description: "Estrategias de despliegue modernas",
-   	state: "Rechazada"
-   },
-   {
-   	date: "2023-10-03",
-   	name: "React Native Intro",
-   	description: "Desarrollo móvil con React Native",
-   	state: "Aceptada"
-   },
-   {
-   	date: "2023-10-20",
-   	name: "Web Security",
-   	description: "Seguridad en aplicaciones web",
-   	state: "Pendiente"
-   },
-   {
-   	date: "2023-11-05",
-   	name: "Performance Optimization",
-   	description: "Optimización de rendimiento en aplicaciones web",
-   	state: "Aceptada"
+   	description: "Control de versiones y colaboración en proyectos",
+   	state: "Pendiente",
+   	user_id: 1,
+   	hour: editDate("2023-03-15", "16:30:00").hour,
+   	duration: 30
    }
 ]
 

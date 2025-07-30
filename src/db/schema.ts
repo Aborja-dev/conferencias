@@ -18,11 +18,13 @@ export const userRelation = relations(usersTable, ({ many }) => ({
 
 export const TalksTable = sqliteTable("talks_table", {
   id: int().primaryKey({ autoIncrement: true }),
-  date: text().notNull(),
+  date: int().notNull(),
   name: text().notNull(),
   description: text().notNull(),
   state: text().notNull(),
   user_id: int().notNull().references(() => usersTable.id),
+  hour: int().notNull(),
+  duration: int().notNull()
 });
 
 export const talkRelation = relations(TalksTable, ({ one }) => ({

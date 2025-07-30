@@ -2,7 +2,7 @@
 import Button from "../components/Button.astro";
 import Layout from "../Layout.astro";
 import { Speaker } from "../lib/service";
-
+import { formatDate } from "../lib/helpers";
 const talks = await Speaker.showALlTalks();
 ---
 
@@ -39,18 +39,18 @@ const talks = await Speaker.showALlTalks();
 										: "bg-slate-700",
 								]}
 							>
-								<td class="p-4">{talk.date}</td>
+								<td class="p-4">{formatDate(talk.date)}</td>
 								<td class="p-4">{talk.name}</td>
 								<td class="p-4 max-w-3xs text-ellipsis overflow-hidden">{talk.description}</td>
 								<td
 									class:list={[
 										"p-4",
-										talk.state === "Aceptada"
+										talk.state === "accepted"
 											? "text-green-500"
 											: "text-red-500",
 									]}
 								>
-									{talk.state}
+									{talk.state === "accepted" ? "Aceptada" : "Rechazada"}
 								</td>
 							</tr>
 						))

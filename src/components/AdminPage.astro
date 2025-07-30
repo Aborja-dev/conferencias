@@ -1,5 +1,5 @@
 ---
-import type { Talks } from "../../db/types";
+import { formatDate } from "../lib/helpers";
 import Layout from "../Layout.astro";
 import type { AdminTalk } from "../lib/service";
 import Option from "./Option.astro";
@@ -11,11 +11,6 @@ const { talks } = Astro.props;
 ---
 
 <Layout>
-	<header class="w-full h-[70px] shadow-2xl bg-blue-800">
-		<h1 class="text-3xl text-white font-bold p-4 uppercase">
-			<a href="/">Conferencias espaciales</a>
-		</h1>
-	</header>
 	<section
 		class="w-full h-[calc(100vh-70px)] flex justify-center items-center p-4"
 	>
@@ -41,7 +36,7 @@ const { talks } = Astro.props;
 										: "bg-slate-700",
 								]}
 							>
-								<td class="p-4">{talk.date}</td>
+								<td class="p-4">{formatDate(talk.date)}</td>
 								<td class="p-4">{talk.name}</td>
 								<td class="p-4">{talk.user.name}</td>
 								<td class="p-4">{talk.description}</td>

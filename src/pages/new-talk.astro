@@ -5,7 +5,7 @@ import Layout from "../Layout.astro";
 
 <Layout>
     <section class="w-full flex flex-col justify-center items-center p-4">
-        <div class="w-2/5 mx-auto bg-slate-500 rounded-xl shadow p-8 mt-12">
+        <div class="w-4/5 mx-auto bg-slate-500 rounded-xl shadow p-8 mt-12">
             <div>
                 <h2>
                     <h2
@@ -15,45 +15,77 @@ import Layout from "../Layout.astro";
                     </h2>
                     <form
                         id="new-talk-form"
-                        class="w-full h-full flex flex-col gap-8 justify-between"
+                        class="w-full h-full grid grid-cols-2 gap-8 justify-between"
                     >
-                        <div class="flex flex-col">
-                            <label
-                                class="text-white px-4 py-2 text-center text-xl uppercase font-bold"
-                                for="name">Titulo</label
-                            >
-                            <input
-                                class="px-4 py-2 bg-slate-200 rounded-xl border-2 border-slate-900"
-                                type="text"
-                                name="name"
-                                id="name"
-                            />
+                        <div>
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-white px-4 py-2 text-center text-xl uppercase font-bold"
+                                    for="name">Titulo</label
+                                >
+                                <input
+                                    class="px-4 py-2 bg-slate-200 rounded-xl border-2 border-slate-900"
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                />
+                            </div>
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-white px-4 py-2 text-center text-xl uppercase font-bold"
+                                    for="description">Description</label
+                                >
+                                <textarea
+                                    class="px-4 py-2 bg-slate-200 rounded-xl border-2 border-slate-900"
+                                    name="description"
+                                    id="description"
+                                    cols="30"
+                                    rows="10"></textarea>
+                            </div>
                         </div>
-                        <div class="flex flex-col">
-                            <label
-                                class="text-white px-4 py-2 text-center text-xl uppercase font-bold"
-                                for="date">Fecha</label
-                            >
-                            <input
-                                class="px-4 py-2 bg-slate-200 rounded-xl border-2 border-slate-900"
-                                type="date"
-                                name="date"
-                                id="date"
-                            />
+                        <div>
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-white px-4 py-2 text-center text-xl uppercase font-bold"
+                                    for="date">Fecha</label
+                                >
+                                <input
+                                    class="px-4 py-2 bg-slate-200 rounded-xl border-2 border-slate-900"
+                                    type="date"
+                                    name="date"
+                                    id="date"
+                                />
+                            </div>
+                                                        <div class="flex flex-col">
+                                <label
+                                    class="text-white px-4 py-2 text-center text-xl uppercase font-bold"
+                                    for="date">Hora</label
+                                >
+                                <input
+                                    class="px-4 py-2 bg-slate-200 rounded-xl border-2 border-slate-900"
+                                    type="time"
+                                    name="hour"
+                                    id="hour"
+                                />
+                            </div>
+                                                        <div class="flex flex-col">
+                                <label
+                                    class="text-white px-4 py-2 text-center text-xl uppercase font-bold"
+                                    for="date">Duracion</label
+                                >
+                                <input
+                                    class="px-4 py-2 bg-slate-200 rounded-xl border-2 border-slate-900"
+                                    type="number"
+                                    min="30"
+                                    step="10"
+                                    name="duration"
+                                    id="duration"
+                                />
+                            </div>
                         </div>
-                        <div class="flex flex-col">
-                            <label
-                                class="text-white px-4 py-2 text-center text-xl uppercase font-bold"
-                                for="description">Description</label
-                            >
-                            <textarea
-                                class="px-4 py-2 bg-slate-200 rounded-xl border-2 border-slate-900"
-                                name="description"
-                                id="description"
-                                cols="30"
-                                rows="10"></textarea>
+                        <div class="flex col-span-2  justify-center items-center">
+                            <Button> Crear conferencia </Button>
                         </div>
-                        <Button> Crear conferencia </Button>
                     </form>
                 </h2>
             </div>
@@ -62,17 +94,32 @@ import Layout from "../Layout.astro";
 </Layout>
 <script>
     import { actions } from "astro:actions";
-    import { navigate } from 'astro:transitions/client' 
+    import { navigate } from "astro:transitions/client";
     const form = document.querySelector("form");
+    type NewTalkFormData = {
+        name: string;
+        description: string;
+        date: string;
+        hour: string;
+        duration: string;
+    }
     form?.addEventListener("submit", async (event) => {
         event.preventDefault();
         const formData = new FormData(form);
-        const {data, error} = await actions.createTalk(formData);
+        /* {
+    "name": "Vue Con 2024",
+    "description": "qssdfgthuh",
+    "date": "2025-07-11",
+    "hour": "01:37",
+    "duration": "60"
+} */
+        
+        const { data, error } = await actions.createTalk(formData);
         if (error) {
             alert(error.message);
         }
         if (data?.ok) {
-            navigate('/');
+            navigate("/");
         }
     });
 </script>
