@@ -3,6 +3,7 @@ import AdminLayout from "../../components/AdminLayout.astro";
 import { Admin } from "../../lib/service";
 import { getDateFormated } from "../../lib/helpers";
 import Button from "../../components/Button.astro";
+import { ScheduleContainer } from "../../components/react/ScheduleContainer";
 const talks = await Admin.getTalksWithUsers();
 ---
 
@@ -18,8 +19,8 @@ const talks = await Admin.getTalksWithUsers();
         >
             {
                 talks.map((talk) => (
-                    <div class="w-full h-[250px] flex flex-col bg-slate-900 rounded-xl">
-                        <h2 class="text-white px-4 py-2 text-center text-3xl uppercase font-bold">
+                    <div class="w-full h-[150px] flex flex-col bg-slate-900 rounded-xl">
+                        <h2 class="text-white px-4 py-2 text-center text-xl uppercase font-bold">
                             {talk.name}
                         </h2>
                         <div class="flex justify-center">
@@ -43,77 +44,7 @@ const talks = await Admin.getTalksWithUsers();
             >
                 Agenda
             </h2>
-            <div class="flex flex-col gap-4" id="agenda-container">
-                <form id="talk-1" class="flex gap-4">
-                    <select name="talk">
-                        {
-                            talks.map((talk) => (
-                                <option value={talk.id}>{talk.name}</option>
-                            ))
-                        }
-                    </select>
-                    <input type="text" readonly value="00:00" name="date" />
-                    <input type="text" readonly value="00:00" name="hour" />
-                </form>
-            </div>
-            <Button id="add-talk">Agregar conferencia</Button>
+            <ScheduleContainer client:load talks={talks} />
         </div>
     </div>
 </AdminLayout>
-<script>
-    import type { Talks } from "../../../db/types";
-    import { getDateFormated } from "../../lib/helpers";
-
-    const $container = document.getElementById("talks-container");
-    const $addTalk = document.getElementById("add-talk");
-    const $agendaContainer = document.getElementById("agenda-container");
-    if (!$container || !$agendaContainer) {
-        throw new Error("No se encontro el contenedor");
-    }
-    const talks = $container.getAttribute("data-array") as string;
-    const talksObject = JSON.parse(talks);
-    const $forms = document.querySelectorAll("form");
-    $forms.forEach((form) => {
-        form.addEventListener("change", async (e) => {
-            const value = (e.target as HTMLSelectElement).value;
-            const result = talksObject.find(
-                (talk: Talks) => talk.id === Number(value),
-            );
-            const dateField = form.querySelector("input[name='date']");
-            (dateField as HTMLInputElement).value = getDateFormated(
-                result.date,
-            ).date;
-            const hourField = form.querySelector("input[name='hour']");
-            (hourField as HTMLInputElement).value = getDateFormated(
-                result.hour,
-            ).hour;
-        });
-    });
-    console.log($addTalk);
-
-    $addTalk?.addEventListener("click", () => {
-        console.log("click");
-
-        createForm();
-    });
-
-    const createForm = () => {
-        const $form = document.createElement("form");
-        $form.id = "talk-" + Math.random();
-        const select = document.createElement("select");
-        select.name = "talk";
-        $form.appendChild(select);
-        const dateInput = document.createElement("input");
-        
-
-        talksObject.forEach((talk: Talks) => {
-            const option = document.createElement("option");
-            option.value = String(talk.id);
-            option.textContent = talk.name;
-            select.appendChild(option);
-        });
-        $form.appendChild(dateInput);
-        $form.appendChild(hourInput);
-        $agendaContainer.appendChild($form);
-    };
-</script>
