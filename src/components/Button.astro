@@ -1,3 +1,8 @@
-<button class="bg-slate-600 text-white px-4 py-2 rounded-xl">
+---
+interface Props {
+    id: string
+}
+---
+<button id={Astro.props.id} class="bg-slate-600 text-white px-4 py-2 rounded-xl">
     <slot />
 </button>

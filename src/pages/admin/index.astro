@@ -1,8 +1,10 @@
 ---
+import AdminLayout from "../../components/AdminLayout.astro";
 import AdminPage from "../../components/AdminPage.astro";
 import { Admin } from "../../lib/service";
 const talks = await Admin.getTalksWithUsers();
 ---
-
-<AdminPage talks={talks} />	
+<AdminLayout>
+    <AdminPage talks={talks} />	
+</AdminLayout>
 
