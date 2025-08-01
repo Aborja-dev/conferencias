@@ -11,8 +11,8 @@ const talks = await Admin.getTalksWithUsers();
     <h1 class="text-3xl text-white font-bold p-4 uppercase text-center">
         Calendario
     </h1>
-    <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 mx-8">
-        <div
+    <div class="w-1/2 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+<!--         <div
             class="flex flex-col gap-4"
             id="talks-container"
             data-array={JSON.stringify(talks)}
@@ -37,13 +37,13 @@ const talks = await Admin.getTalksWithUsers();
                     </div>
                 ))
             }
-        </div>
+        </div> -->
         <div>
-            <h2
+<!--             <h2
                 class="text-white px-4 py-2 text-center text-3xl uppercase font-bold"
             >
                 Agenda
-            </h2>
+            </h2> -->
             <ScheduleContainer client:load talks={talks} />
         </div>
     </div>

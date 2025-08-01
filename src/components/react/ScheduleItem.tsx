@@ -1,6 +1,4 @@
-import type { Talks } from "../../../db/types"
 import { useId, useState } from "react";
-import { getDateFormated } from "../../lib/helpers";
 import type { TalkSchema } from "../../db/type";
 export const ScheduleItem = ({ talks, hour, date, onSelect }: { 
     talks: TalkSchema[]
@@ -8,14 +6,17 @@ export const ScheduleItem = ({ talks, hour, date, onSelect }: {
     date: number,
     onSelect: (id: number) => void
 }) => {
-    const [time, setTime] = useState({
+    const [currentTalk, setCurrentTalk] = useState({
+        talks: {},
         hour,
-        date    });
+        date    
+    });
     const id = useId();
     const changeHandler = (e: any) => {
         const result = talks.find((talk) => talk.id === Number(e.target.value));
         if (!result) return
-        setTime({
+        setCurrentTalk({
+            talks: result,
             hour: result.hour,
             date: result.date
         });
@@ -23,7 +24,7 @@ export const ScheduleItem = ({ talks, hour, date, onSelect }: {
     }
     
     return (
-    <form id={`talk-${id}`} className="flex gap-4">
+    <form  className="flex gap-4">
         <select name="talk" onChange={changeHandler}>
             {
                 talks.map((talk) => (
@@ -31,8 +32,8 @@ export const ScheduleItem = ({ talks, hour, date, onSelect }: {
                 ))
             }
         </select>
-        <input type="text" readOnly value={new Date(time.date).toLocaleDateString()} name="date" />
-        <input type="text" readOnly value={new Date(time.hour).toLocaleTimeString()} name="hour" />
+        <input  type="text" readOnly value={new Date(currentTalk.date).toLocaleDateString()} name="date" />
+        <input  type="text" readOnly value={new Date(currentTalk.hour).toLocaleTimeString()} name="hour" />
     </form>
     )
 }
