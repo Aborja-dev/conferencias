@@ -17,3 +17,9 @@ export interface ForInsertTalk {
     hour: number;
     duration: number
 }
+
+export interface IMessage {
+    userId: number,
+    message: string,
+    talkId: number
+}

@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db, messageTable, TalksTable, usersTable } from "../db/schema";
-import type { TalkSchema } from "../db/type";
+import type { IMessage, TalkSchema } from "../db/type";
 
 
 const showALlTalks = async () => {
@@ -55,7 +55,17 @@ const getTalk = async (id: number) => {
     const result = await db.select().from(TalksTable).where(eq(TalksTable.id, id));
     return result[0]
 }
-
+const createMessage = async ({
+    userId,
+    message,
+    talkId
+}: IMessage) => {
+    await db.insert(messageTable).values([{
+        talk_id: talkId,
+        message: message,
+        user_id: userId
+    }])
+}
 const getMessages = async () => {
     const result = await db
         .select()
@@ -66,11 +76,13 @@ const getMessages = async () => {
 
 export const Speaker = {
     showALlTalks,
-    createTalk
+    createTalk,
+    createMessage
 }
 
 export const Admin = {
     getTalksWithUsers,
     updateStatus,
-    getTalk
+    getTalk,
+    createMessage
 }
