@@ -8,9 +8,10 @@ Roberto es el organizador del evento de charlas para acercar la astronomía a j�
 
 Uno de los ayudantes de Roberto contacto a un amigo que es parte de la organización de FrontendCafé para pedirle si era posible general algún tipo de administrador de charlas. En la cual nos facilitó un listado de las tareas que realizaban y que necesitaban que tenga este administrador:
 
-- Registrar la charla propuesta por una persona (Él cree que tranquilamente las personas interesadas pondrían llenar un formulario, pero por el momento ellos lo hacen)
-- Visualizar las propuestas de cada persona, donde se puedan filtrar por temáticas y duración.
-- Poder aprobar, desestimar y dar feedback de cada propuesta.
+✔ Registrar la charla propuesta por una persona (Él cree que tranquilamente las personas interesadas pondrían llenar un formulario, pero por el momento ellos lo hacen)
+✔ Visualizar las propuestas de cada persona, donde se puedan filtrar por temáticas y duración.
+✔ Poder aprobar, desestimar y 
+dar feedback de cada propuesta.
 - Generar un calendario para el evento en base a las propuestas
 - Cada persona que propuso una charla podrá tener la posibilidad de visualizar el estado y feedback de la propuesta.
 - Soporte para diferentes eventos

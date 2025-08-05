@@ -35,3 +35,5 @@ export const verifySchedule = (entry: {
     })
     return { message: 'Invalid schedule', repeatedIds, overlaps }
 }
+
+export const createResponse = (data: any) => new Response(JSON.stringify(data), { status: 200 });

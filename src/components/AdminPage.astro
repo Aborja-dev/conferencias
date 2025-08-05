@@ -7,69 +7,60 @@ interface Props {
 	talks: AdminTalk[];
 }
 const { talks } = Astro.props;
-
 ---
 
-
-			<table class="w-full">
-				<thead class="text-left text-3xl font-bold text-white">
-					<tr class="border-b-2 border-white">
-						<th class="p-4">Fecha</th>
-						<th class="p-4">Nombre</th>
-						<th class="p-4">Usuario</th>
-						<th class="p-4">Descripcion</th>
-						<th class="p-4">Estado</th>
-					</tr>
-				</thead>
-				<tbody class="text-white">
-					{
-						talks.map((talk, index) => (
-							<tr
-								class:list={[
-									"border-b-2 border-white",
-									index % 2 === 0
-										? "bg-slate-900"
-										: "bg-slate-700",
-								]}
-							>
-								<td class="p-4">{formatDate(talk.date)}</td>
-								<td class="p-4">{talk.name}</td>
-								<td class="p-4">{talk.user.name}</td>
-								<td class="p-4">{talk.description}</td>
-								<td class="p-4">
-									<select
-										name="status"
-										id={`select-${talk.id.toString()}`}
-										class="bg-slate-900"
-									>
-										<>
-											<Option
-												state={talk.state}
-												value="pending"
-											>
-												Pendiente
-											</Option>
-											<Option
-												state={talk.state}
-												value="accepted"
-											>
-												Aceptada
-											</Option>
-											<Option
-												state={talk.state}
-												value="rejected"
-											>
-												Rechazada
-											</Option>
-										</>
-									</select>
-								</td>
-							</tr>
-						))
-					}
-				</tbody>
-			</table>
-
+<table class="w-full">
+	<thead class="text-left text-3xl font-bold text-white">
+		<tr class="border-b-2 border-white">
+			<th class="p-4">Fecha</th>
+			<th class="p-4">Nombre</th>
+			<th class="p-4">Usuario</th>
+			<th class="p-4">Descripcion</th>
+			<th class="p-4">Estado</th>
+		</tr>
+	</thead>
+	<tbody class="text-white">
+		{
+			talks.map((talk, index) => (
+				<tr
+					class:list={[
+						"border-b-2 border-white",
+						index % 2 === 0 ? "bg-slate-900" : "bg-slate-700",
+					]}
+				>
+					<td class="p-4">{formatDate(talk.date)}</td>
+					<td class="p-4">{talk.name}</td>
+					<td class="p-4">{talk.user.name}</td>
+					<td class="p-4">{talk.description}</td>
+					<td class="p-4">
+						<select
+							name="status"
+							id={`select-${talk.id.toString()}`}
+							class="bg-slate-900"
+						>
+							<>
+								<Option state={talk.state} value="pending">
+									Pendiente
+								</Option>
+								<Option state={talk.state} value="accepted">
+									Aceptada
+								</Option>
+								<Option state={talk.state} value="rejected">
+									Rechazada
+								</Option>
+							</>
+						</select>
+					</td>
+					<td>
+						<a href={`admin/${talk.id.toString()}`}>
+							Ver más
+						</a>
+					</td>
+				</tr>
+			))
+		}
+	</tbody>
+</table>
 
 <script>
 	// TODO hacer debounce de la actualizacion

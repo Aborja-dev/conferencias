@@ -96,24 +96,9 @@ import Layout from "../Layout.astro";
     import { actions } from "astro:actions";
     import { navigate } from "astro:transitions/client";
     const form = document.querySelector("form");
-    type NewTalkFormData = {
-        name: string;
-        description: string;
-        date: string;
-        hour: string;
-        duration: string;
-    }
     form?.addEventListener("submit", async (event) => {
         event.preventDefault();
         const formData = new FormData(form);
-        /* {
-    "name": "Vue Con 2024",
-    "description": "qssdfgthuh",
-    "date": "2025-07-11",
-    "hour": "01:37",
-    "duration": "60"
-} */
-        
         const { data, error } = await actions.createTalk(formData);
         if (error) {
             alert(error.message);

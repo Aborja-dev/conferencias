@@ -16,6 +16,9 @@ export const userRelation = relations(usersTable, ({ many }) => ({
   talks: many(TalksTable),
 }))
 
+
+
+
 export const TalksTable = sqliteTable("talks_table", {
   id: int().primaryKey({ autoIncrement: true }),
   date: int().notNull(),
@@ -31,5 +34,19 @@ export const talkRelation = relations(TalksTable, ({ one }) => ({
   user: one(usersTable, {
     fields: [TalksTable.user_id],
     references: [usersTable.id],
+  }),
+}))
+
+export const messageTable = sqliteTable("message_table", {
+  id: int().primaryKey({ autoIncrement: true }),
+  message: text().notNull(),
+  user_id: int().notNull().references(() => usersTable.id),
+  talk_id: int().notNull().references(() => TalksTable.id)
+})
+
+export const messageRelation = relations(messageTable, ({ one }) => ({
+  talk: one(TalksTable, {
+    fields: [messageTable.talk_id],
+    references: [TalksTable.id],
   }),
 }))

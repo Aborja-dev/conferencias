@@ -16,7 +16,7 @@ export const server = {
     }),
     handler: async (input) => {
      const { name, date, description, hour, duration } = input
-     const result = await Speaker.createTalk({
+     await Speaker.createTalk({
        name,
        date: new Date(date).getTime(),
        description,
