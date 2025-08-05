@@ -66,12 +66,20 @@ const createMessage = async ({
         user_id: userId
     }])
 }
-const getMessages = async () => {
+const getMessages = async (talkId: number) => {
     const result = await db
         .select()
-        .from(TalksTable)
-        .innerJoin(messageTable, eq(TalksTable, usersTable.id))
+        .from(messageTable)
+        .where(eq(messageTable.talk_id, talkId))
+        .innerJoin(usersTable, eq(messageTable.user_id, usersTable.id))
         ;
+    const messages = result.map(({message_table, users_table}) => {
+        return {
+            message: message_table.message,
+            name: users_table.name
+        }
+    })
+    return messages
 }
 
 export const Speaker = {
@@ -84,5 +92,6 @@ export const Admin = {
     getTalksWithUsers,
     updateStatus,
     getTalk,
-    createMessage
+    createMessage,
+    getMessages
 }
