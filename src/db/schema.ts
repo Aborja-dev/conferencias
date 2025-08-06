@@ -1,6 +1,5 @@
-
 import { drizzle } from 'drizzle-orm/libsql';
-import { relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import { createClient } from '@libsql/client';
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
@@ -14,10 +13,8 @@ export const usersTable = sqliteTable("users_table", {
 
 export const userRelation = relations(usersTable, ({ many }) => ({
   talks: many(TalksTable),
+  messages: many(messageTable)
 }))
-
-
-
 
 export const TalksTable = sqliteTable("talks_table", {
   id: int().primaryKey({ autoIncrement: true }),
@@ -30,23 +27,32 @@ export const TalksTable = sqliteTable("talks_table", {
   duration: int().notNull()
 });
 
-export const talkRelation = relations(TalksTable, ({ one }) => ({
+export const talkRelation = relations(TalksTable, ({ one, many }) => ({
   user: one(usersTable, {
     fields: [TalksTable.user_id],
     references: [usersTable.id],
   }),
+  messages: many(messageTable) // Agregamos esta relación
 }))
 
 export const messageTable = sqliteTable("message_table", {
   id: int().primaryKey({ autoIncrement: true }),
   message: text().notNull(),
   user_id: int().notNull().references(() => usersTable.id),
-  talk_id: int().notNull().references(() => TalksTable.id)
+  talk_id: int().notNull().references(() => TalksTable.id),
+  createdAt: text('created_at')
+    .notNull()
+    .default(sql`current_timestamp`)
 })
 
+// AQUÍ ESTÁ LA CORRECCIÓN PRINCIPAL
 export const messageRelation = relations(messageTable, ({ one }) => ({
-  talk: one(TalksTable, {
-    fields: [messageTable.talk_id],
-    references: [TalksTable.id],
+  user: one(usersTable, {
+    fields: [messageTable.user_id],
+    references: [usersTable.id],
   }),
+  talk: one(TalksTable, {
+    fields: [messageTable.talk_id], 
+    references: [TalksTable.id],
+  })
 }))

@@ -74,11 +74,16 @@ const getMessages = async (talkId: number) => {
         .innerJoin(usersTable, eq(messageTable.user_id, usersTable.id))
         ;
     const messages = result.map(({message_table, users_table}) => {
+        
+        const date = new Date(+message_table.createdAt).toLocaleDateString();
+        const time = new Date(+message_table.createdAt).toLocaleTimeString();
         return {
             message: message_table.message,
-            name: users_table.name
+            name: users_table.name,
+            date: `${date} ${time}`
         }
     })
+    .reverse()
     return messages
 }
 

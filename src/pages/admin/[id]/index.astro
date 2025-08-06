@@ -7,8 +7,6 @@ if (!id) {
 }
 const talk = await Admin.getTalk(+id)
 const messages = await Admin.getMessages(+id)
-console.log(messages);
-
 ---
 
 <AdminLayout>
@@ -31,11 +29,16 @@ console.log(messages);
     <div class="flex flex-col gap-4">
     {
         messages.map((message) => (
-            <div class="flex flex-col py-4 px-2 gap-4 bg-slate-600 rounded">
-                <p class="text-white font-bold">
+            <div class="text-white flex flex-col py-4 px-2 gap-4 bg-slate-600 rounded">
+                <div class="flex justify-between">
+                <p class="font-bold">
                     {message.name}
                 </p>
-                <p class="text-white">
+                <p>
+                    {message.date}
+                </p>
+                </div>
+                <p >
                     {message.message}
                 </p>
             </div>
