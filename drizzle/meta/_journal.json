@@ -29,6 +29,13 @@
       "when": 1754437517027,
       "tag": "0003_flashy_black_bird",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1754440738443,
+      "tag": "0004_solid_the_stranger",
+      "breakpoints": true
     }
   ]
 }

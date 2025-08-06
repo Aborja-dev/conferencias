@@ -220,7 +220,7 @@ export default async function seed() {
 		// Insertar en el orden correcto
 		await db.insert(usersTable).values(users)
 		await db.insert(TalksTable).values(talksWithUsers)
-		await db.insert(messageTable).values(messages)
+		//await db.insert(messageTable).values(messages)
 		
 		console.log("Seed completado exitosamente")
 	} catch (error) {

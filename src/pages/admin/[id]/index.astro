@@ -1,6 +1,7 @@
 ---
 import AdminLayout from "../../../components/AdminLayout.astro";
 import { Admin } from "../../../lib/service";
+import {MessagesDisplay} from "../../../components/react/MessagesDisplay";
 const { id } = Astro.params
 if (!id) {
     return Astro.redirect('/admin')
@@ -15,36 +16,7 @@ const messages = await Admin.getMessages(+id)
     </h1>
     <h3 class="text-2xl text-white font-bold p-4 uppercase text-center">{talk.name}</h3>
     <p class="text-white">{talk.description}</p>
-    <div class="relative">
-        <form data-talk-id={id}>
-            <textarea
-            class="bg-slate-300 border border-white w-full rounded-2xl mt-4 py-2 px-4 " 
-            name="" id="" rows="5">
-        </textarea>
-        <button class="bg-slate-600 text-white px-4 py-2 rounded-xl absolute bottom-4 right-4">
-            Submit
-        </button>
-        </form>
-    </div>
-    <div class="flex flex-col gap-4">
-    {
-        messages.map((message) => (
-            <div class="text-white flex flex-col py-4 px-2 gap-4 bg-slate-600 rounded">
-                <div class="flex justify-between">
-                <p class="font-bold">
-                    {message.name}
-                </p>
-                <p>
-                    {message.date}
-                </p>
-                </div>
-                <p >
-                    {message.message}
-                </p>
-            </div>
-        ))
-    }
-    </div>
+   <MessagesDisplay client:load messagesInitial={messages} id={+id} />
 </AdminLayout>
 <script>
 import type { IMessage } from "../../../db/type"

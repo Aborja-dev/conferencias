@@ -60,6 +60,8 @@ const createMessage = async ({
     message,
     talkId
 }: IMessage) => {
+    console.log("llego al sevice  ");
+    
     await db.insert(messageTable).values([{
         talk_id: talkId,
         message: message,
@@ -75,8 +77,8 @@ const getMessages = async (talkId: number) => {
         ;
     const messages = result.map(({message_table, users_table}) => {
         
-        const date = new Date(+message_table.createdAt).toLocaleDateString();
-        const time = new Date(+message_table.createdAt).toLocaleTimeString();
+        const date = new Date(+message_table.created_at).toLocaleDateString();
+        const time = new Date(+message_table.created_at).toLocaleTimeString();
         return {
             message: message_table.message,
             name: users_table.name,

@@ -40,9 +40,9 @@ export const messageTable = sqliteTable("message_table", {
   message: text().notNull(),
   user_id: int().notNull().references(() => usersTable.id),
   talk_id: int().notNull().references(() => TalksTable.id),
-  createdAt: text('created_at')
+  created_at: int('created_at', { mode: 'timestamp' })
     .notNull()
-    .default(sql`current_timestamp`)
+    .default(sql`(unixepoch())`),
 })
 
 // AQUÍ ESTÁ LA CORRECCIÓN PRINCIPAL

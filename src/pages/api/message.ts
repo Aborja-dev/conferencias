@@ -18,8 +18,9 @@ export const POST: APIRoute = async ({ params, request }) => {
             userId: Number(_body.userId),
             talkId: Number(_body.talkId)
         });
+        const messages = await Admin.getMessages(_body.talkId);
         return createResponse({
-            data: body
+            response: messages
         });
     } catch (error) {
         return new Response(JSON.stringify(error), { status: 400 });
