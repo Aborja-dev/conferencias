@@ -1,4 +1,4 @@
-import { db, messageTable, TalksTable, usersTable } from './schema';
+import { db, messageTable, TalksTable, topicTable, topicToTalkTable, usersTable } from './schema';
 import type { ForInsertTalk, IMessage } from './type';
 
 const editDate = (date:string, time:string) => {
@@ -203,7 +203,28 @@ const messages = [
    	talk_id: 7
    }
 ]
-
+const topics = [
+	{
+		name: "Programación",
+		id: 1
+	},
+	{
+		name: "Algoritmos",
+		id: 2
+	},
+	{
+		name: "Base de datos",
+		id: 3
+	},
+	{
+		name: "Comunicación",
+		id: 4
+	},
+	{
+		name: "Desarrollo web",
+		id: 5
+	}
+]
 export default async function seed() {
 	const talksWithUsers = talks.map(talk => {
 		return {
@@ -213,6 +234,8 @@ export default async function seed() {
 	})
 	try {
 		// CORREGIDO: Eliminar en orden inverso por las foreign keys
+		await db.delete(topicToTalkTable).execute()
+		await db.delete(topicTable).execute()
 		await db.delete(messageTable).execute()
 		await db.delete(TalksTable).execute()
 		await db.delete(usersTable).execute()
@@ -220,7 +243,24 @@ export default async function seed() {
 		// Insertar en el orden correcto
 		await db.insert(usersTable).values(users)
 		await db.insert(TalksTable).values(talksWithUsers)
-		//await db.insert(messageTable).values(messages)
+		await db.insert(messageTable).values(messages)
+		await db.insert(topicTable).values(topics)
+		await db.insert(topicToTalkTable).values([{
+			talk_id: 1,
+			topic_id: 1
+		}, {
+			talk_id: 1,
+			topic_id: 2
+		}, {
+			talk_id: 1,
+			topic_id: 3
+		}, {
+			talk_id: 2,
+			topic_id: 4
+		}, {
+			talk_id: 2,
+			topic_id: 5
+		}])
 		
 		console.log("Seed completado exitosamente")
 	} catch (error) {

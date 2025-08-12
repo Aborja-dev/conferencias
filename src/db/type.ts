@@ -7,6 +7,7 @@ export interface TalkSchema {
     user_id: number;
     hour: number;
     duration: number
+    topics: string[]
 }
 export interface ForInsertTalk {
     name: string;

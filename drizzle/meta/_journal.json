@@ -36,6 +36,20 @@
       "when": 1754440738443,
       "tag": "0004_solid_the_stranger",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1754979827485,
+      "tag": "0005_amused_darkhawk",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1754980091163,
+      "tag": "0006_thick_thunderball",
+      "breakpoints": true
     }
   ]
 }

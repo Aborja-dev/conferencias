@@ -32,8 +32,25 @@ export const talkRelation = relations(TalksTable, ({ one, many }) => ({
     fields: [TalksTable.user_id],
     references: [usersTable.id],
   }),
-  messages: many(messageTable) // Agregamos esta relación
+  messages: many(messageTable),
+  topics: many(topicTable), // Agregamos esta relación
+
 }))
+
+export const topicTable = sqliteTable("topic_table", {
+  id: int().primaryKey({ autoIncrement: true }),
+  name: text().notNull(),
+});
+
+export const topicRelation = relations(topicTable, ({ many }) => ({
+  talks: many(TalksTable),
+}))
+
+export const topicToTalkTable = sqliteTable("topic_to_talk_table", {
+  id: int().primaryKey({ autoIncrement: true }),
+  topic_id: int().notNull().references(() => topicTable.id),
+  talk_id: int().notNull().references(() => TalksTable.id),
+})
 
 export const messageTable = sqliteTable("message_table", {
   id: int().primaryKey({ autoIncrement: true }),

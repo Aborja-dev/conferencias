@@ -21,3 +21,4 @@ VALUES
 ('Necesito ayuda con el código', 1, 7, 1705844400000),
 ('¿En qué te ayudo?', 2, 7, 1705844550000),
 ('Gracias, ya lo resolví', 1, 7, 1705845910000);
+
